@@ -1,2 +1,9 @@
+# bat/cmd files
 *.cmd
 *.bat
+
+# dependecies
+/node_modules
+
+# local files
+.local/
