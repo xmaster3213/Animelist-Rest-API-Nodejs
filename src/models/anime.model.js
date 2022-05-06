@@ -5,7 +5,7 @@ const Anime = function(anime) {
   this.nome = anime.nome;
   this.studio = anime.studio;
   this.trama = anime.trama;
-  this.durata_episodio = anime.durata_episodio;
+  this.durata_episodi = anime.durata_episodi;
   this.voto_medio = anime.voto_medio;
   this.data_rilascio = anime.data_rilascio;
   this.numero_episodi = anime.numero_episodi;
@@ -25,3 +25,17 @@ Anime.create = (newAnime, result) => {
     result(null, {id: res.id, ...newAnime});
   });
 };
+
+Anime.getAll = (result) => {
+  sql.query("SELECT * FROM anime", (err, res) => {
+    if (err) {
+      console.log("error ", err);
+      result(err, null);
+      return;
+    }
+    console.log("anime: ", res);
+    result(null, res);
+  });
+};
+
+module.exports = Anime;

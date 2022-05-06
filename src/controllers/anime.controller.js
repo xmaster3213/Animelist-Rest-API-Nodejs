@@ -8,12 +8,15 @@ exports.create = (req, res) => {
       message: "Content can not be empty!"
     });
   }
+
+  console.log(req.body);
+
   // Create an Anime
   const anime = new Anime({
     nome: req.body.nome,
     studio: req.body.studio,
     trama: req.body.trama,
-    durata_episodio: req.body.durata_episodio,
+    durata_episodi: req.body.durata_episodi,
     voto_medio: req.body.voto_medio,
     data_rilascio: req.body.data_rilascio,
     numero_episodi: req.body.numero_episodi,
@@ -30,3 +33,15 @@ exports.create = (req, res) => {
     else res.send(data);
   });
 };
+
+exports.getAll = (req, res) => {
+  Anime.getAll((err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retriving the anime."
+      })
+    } else {
+      res.send(data)
+    }
+  });
+}
