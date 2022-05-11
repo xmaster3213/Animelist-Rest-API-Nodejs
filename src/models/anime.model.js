@@ -33,8 +33,24 @@ Anime.getAll = (result) => {
       result(err, null);
       return;
     }
-    console.log("anime: ", res);
+    console.log("animes: ", res);
     result(null, res);
+  });
+};
+
+Anime.findById = (id, result) => {
+  sql.query("SELECT * FROM anime WHERE ID = ?", [id], (err, res) => {
+    if (err) {
+      console.log("error ", err);
+      result(err, null);
+      return;
+    }
+    if (res.length) {
+      console.log("found anime: ", res);
+      result(null, res[0]);
+      return;
+    }
+    result({kind: "not_found"}, null);
   });
 };
 

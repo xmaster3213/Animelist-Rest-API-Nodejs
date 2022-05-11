@@ -4,6 +4,7 @@ module.exports = app => {
     // Create a new Anime
     router.post("/", anime.create);
     router.get("/", anime.getAll);
+    router.get("/:id", anime.findById);
 
     app.use('/api/anime', router);
   };
