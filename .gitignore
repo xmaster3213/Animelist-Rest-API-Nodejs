@@ -5,5 +5,5 @@
 # dependecies
 /node_modules
 
-# local files
-.local/
+# environment variables
+.env

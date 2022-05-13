@@ -1,4 +1,5 @@
 const User = require("../models/user.model.js");
+const jwt = require("jsonwebtoken");
 
 exports.checkCredentials = (req, res) => {
   // Validate request
@@ -20,6 +21,17 @@ exports.checkCredentials = (req, res) => {
           message: "Error retrieving User"
         });
       }
-    } else res.send(data);
+    } else {
+      // TODO: I think anyone could get the TOKEN_KEY by decripting the token with his username?
+      const token = jwt.sign(
+        { username: data.username },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+      data['token'] = token;
+      res.send(data);
+    }
   });
 };

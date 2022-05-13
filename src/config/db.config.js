@@ -1,15 +1,9 @@
-const fs = require('fs');
+const config = process.env;
 
-try {
-  const dbRaw = fs.readFileSync('res/.local/db.json', 'utf8');
-  db = JSON.parse(dbRaw);
-  module.exports = {
-    HOST: db.host,
-    USER: db.user,
-    PASSWORD: db.password,
-    DB: db.name,
-    PORT: db.port
-  };
-} catch (err) {
-  console.error(err);
-}
+module.exports = {
+  HOST: config.DB_HOST,
+  USER: config.DB_USER,
+  PASSWORD: config.DB_PASSWORD,
+  DB: config.DB_NAME,
+  PORT: config.DB_PORT
+};
