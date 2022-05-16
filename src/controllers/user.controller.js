@@ -22,7 +22,6 @@ exports.checkCredentials = (req, res) => {
         });
       }
     } else {
-      // TODO: I think anyone could get the TOKEN_KEY by decripting the token with his username?
       const token = jwt.sign(
         { username: data.username },
         process.env.TOKEN_KEY,
@@ -44,8 +43,6 @@ exports.create = (req, res) => {
     });
   }
 
-    console.log(req.body);
-
   // Create an Anime
   const user = new User({
     username: req.body.username,
@@ -62,6 +59,36 @@ exports.create = (req, res) => {
         message:
           err.message || "Some error occurred while creating the User."
       });
-    else res.status(201).send(data);
+    else {
+      const token = jwt.sign(
+        { username: req.body.username },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
+      data['token'] = token;
+      res.status(201).send(data)
+    };
+  });
+};
+
+exports.findById = (req, res) => {
+  if (req.params.username !== req.user.username) {
+    res.status(401).send('Invalid Token for requested User');
+    return;
+  }
+  User.findByUsername(req.params.username, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found User with username ${req.params.username}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving User with username " + req.params.username
+        });
+      }
+    } else res.send(data);
   });
 };
