@@ -4,9 +4,9 @@ const User = function(user) {
   this.username = user.username;
   this.password = user.password;
   this.email = user.email;
-  this.phone = user.phone;
-  this.image = user.image;
-  this.amministrator = user.amministrator;
+  this.telefono = user.telefono;
+  this.immagine = user.immagine;
+  this.amministratore = user.amministratore;
 }
 
 User.checkCredentials = (username, password, result) => {
@@ -23,6 +23,18 @@ User.checkCredentials = (username, password, result) => {
     }
     result({kind: 'not_found'}, null);
   });  
+};
+
+User.create = (newUser, result) => {
+  sql.query('INSERT INTO account SET ?', newUser, (err, res) => {
+    if (err) {
+      console.log('error ', err);
+      result(err, null);
+      return;
+    }
+    console.log('created user ', {id: res.id, ...newUser});
+    result(null, {id: res.id, ...newUser});
+  });
 };
 
 module.exports = User;
