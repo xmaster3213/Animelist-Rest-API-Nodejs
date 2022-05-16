@@ -14,6 +14,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 // add routers
+require("./routes/character.routes.js")(app);
 require("./routes/anime.routes.js")(app);
 require("./routes/user.routes.js")(app);
 // set port, listen for requests
