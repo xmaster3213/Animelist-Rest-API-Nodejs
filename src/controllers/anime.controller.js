@@ -11,14 +11,14 @@ exports.create = (req, res) => {
 
   // Create an Anime
   const anime = new Anime({
-    nome: req.body.nome,
+    nome: req.body.name,
     studio: req.body.studio,
-    trama: req.body.trama,
-    durata_episodi: req.body.durata_episodi,
-    voto_medio: req.body.voto_medio,
-    data_rilascio: req.body.data_rilascio,
-    numero_episodi: req.body.numero_episodi,
-    immagine_copertina: req.body.immagine_copertina,
+    trama: req.body.plot,
+    durata_episodi: req.body.duration_episodes,
+    voto_medio: req.body.avg_score,
+    data_rilascio: req.body.release_date,
+    numero_episodi: req.body.episodes_number,
+    immagine_copertina: req.body.cover_image,
     trailer: req.body.trailer
   });
   // Save Anime in the database
