@@ -9,8 +9,6 @@ exports.create = (req, res) => {
     });
   }
 
-  console.log(req.body);
-
   // Create an Anime
   const anime = new Anime({
     nome: req.body.nome,
@@ -30,7 +28,7 @@ exports.create = (req, res) => {
         message:
           err.message || "Some error occurred while creating the Anime."
       });
-    else res.send(data);
+    else res.status(201).send(data);
   });
 };
 
